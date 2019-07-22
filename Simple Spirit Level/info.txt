@@ -1,0 +1,1 @@
+A simple spirit level on android studio using Sensor manager (Accelerometer)
