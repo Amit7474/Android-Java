@@ -1,0 +1,1 @@
+Simple countdown timer with some alpha animation an rooster alarm in the end
