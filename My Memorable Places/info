@@ -5,4 +5,5 @@ The app combined several things:
 2. work with Google maps API
 3. Location Manager and GPS fine location
 4. get location address
-5. save the location that we want inside a List view and Shared Preferences for permanent memory
+5. Object Serialize
+6. save the location that we want inside a List view and Shared Preferences for permanent memory
