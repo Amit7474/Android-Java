@@ -17,14 +17,28 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    static ArrayList<String>  places = new ArrayList<String>();
+    static ArrayList<String> places = new ArrayList<String>();
     static ArrayList<LatLng> locations = new ArrayList<LatLng>();
+    ArrayList<String> latitudes;
+    ArrayList<String> longtiudes;
     static ArrayAdapter arrayAdapter;
     SharedPreferences sharedPreferences;
     Button btnClr;
 
-    public void clear(){
+    //Clear all the arrays
+    public void initArrays() {
+        places.clear();
+        latitudes.clear();
+        longtiudes.clear();
+        locations.clear();
+    }
 
+    //Clear the sharedPrefences and the listView
+    public void clear(View view) {
+        sharedPreferences.edit().clear().apply();
+        initArrays();
+        arrayAdapter.notifyDataSetChanged();
+        places.add("Add a new place...");
 
     }
 
@@ -38,15 +52,10 @@ public class MainActivity extends AppCompatActivity {
         //Restore the locations from sharedPreferences
         sharedPreferences = this.getSharedPreferences("com.example.mymemorableplaces2", MODE_PRIVATE);
 
-        ArrayList<String> latitudes = new ArrayList<String>();
-        ArrayList<String> longtiudes = new ArrayList<String>();
+        latitudes = new ArrayList<String>();
+        longtiudes = new ArrayList<String>();
 
-        //For safety
-        places.clear();
-        latitudes.clear();
-        longtiudes.clear();
-        locations.clear();
-
+        //Gets the places that were saved in the SharedPrefences
         try {
             places = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("places", ObjectSerializer.serialize(new ArrayList<String>())));
             latitudes = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("lats", ObjectSerializer.serialize(new ArrayList<String>())));
@@ -63,14 +72,13 @@ public class MainActivity extends AppCompatActivity {
                     locations.add(new LatLng(Double.parseDouble(latitudes.get(i)), Double.parseDouble(longtiudes.get(i))));
                 }
             }
-        // If there is nothing to copy it starts fresh listView
+            // If there is nothing to copy it starts fresh listView
         } else {
             places.add("Add a new place...");
             locations.add(new LatLng(0, 0));
         }
 
         ListView listView = findViewById(R.id.listView);
-
 
 
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, places);
