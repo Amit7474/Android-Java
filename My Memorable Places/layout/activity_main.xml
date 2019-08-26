@@ -25,6 +25,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:onClick="clear"
         android:text="Clear"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
